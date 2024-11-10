@@ -1,14 +1,24 @@
 package orc.zdertis420.playlistmaker
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var backToMain: ImageButton
+    private lateinit var share: TextView
+    private lateinit var support: TextView
+    private lateinit var eula: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -19,10 +29,51 @@ class SettingsActivity : AppCompatActivity() {
             insets
         }
 
-        val backToMain = findViewById<ImageButton>(R.id.back_to_main)
+        backToMain = findViewById(R.id.back_to_main)
+        share = findViewById(R.id.share)
+        support = findViewById(R.id.support)
+        eula = findViewById(R.id.eula)
 
-        backToMain.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+        backToMain.setOnClickListener(this@SettingsActivity)
+        share.setOnClickListener(this@SettingsActivity)
+        support.setOnClickListener(this@SettingsActivity)
+        eula.setOnClickListener(this@SettingsActivity)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.back_to_main -> finish()
+
+            R.id.share -> startActivity(Intent.createChooser(Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "https://practicum.yandex.ru/profile/android-developer-plus/"
+                )
+                type = "text/plain"
+            }, null))
+
+            R.id.support -> startActivity(Intent.createChooser(Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(
+                    Intent.EXTRA_EMAIL,
+                    arrayOf("AnRobo07@yandex.ru")
+                )
+                putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    "Сообщение разработчикам и разработчицам приложения Playlist Maker"
+                )
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Спасибо разработчикам и разработчицам за крутое приложение!"
+                )
+                type = "message/rfc822"
+            }, null))
+
+            R.id.eula -> startActivity(
+                Uri.parse("https://yandex.ru/legal/practicum_offer/").let { webpage ->
+                    Intent(Intent.ACTION_VIEW, webpage)
+                })
         }
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="standard_font_size">30sp</dimen>
-    <dimen name="standard_size">50dp</dimen>
+    <dimen name="standard_font_size">20sp</dimen>
+    <dimen name="small_font_size">15sp</dimen>
+    <dimen name="standard_size">40dp</dimen>
 </resources>
