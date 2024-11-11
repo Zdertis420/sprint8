@@ -55,10 +55,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.support -> startActivity(Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
-                putExtra(
-                    Intent.EXTRA_EMAIL,
-                    arrayOf("AnRobo07@yandex.ru")
-                )
+                data = Uri.parse("mailto:AnRobo07@yandex.ru")
                 putExtra(
                     Intent.EXTRA_SUBJECT,
                     "Сообщение разработчикам и разработчицам приложения Playlist Maker"
@@ -67,13 +64,13 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
                     Intent.EXTRA_TEXT,
                     "Спасибо разработчикам и разработчицам за крутое приложение!"
                 )
-                type = "message/rfc822"
             }, null))
 
             R.id.eula -> startActivity(
-                Uri.parse("https://yandex.ru/legal/practicum_offer/").let { webpage ->
-                    Intent(Intent.ACTION_VIEW, webpage)
-                })
+                Intent(Intent.ACTION_VIEW, Uri.parse("https://yandex.ru/legal/practicum_offer/"))
+            )
+
+//            R.id.swith_theme -> application.setTheme()
         }
     }
 }

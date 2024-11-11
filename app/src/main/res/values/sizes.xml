@@ -3,4 +3,5 @@
     <dimen name="standard_font_size">20sp</dimen>
     <dimen name="small_font_size">15sp</dimen>
     <dimen name="standard_size">40dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
 </resources>
