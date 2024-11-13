@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="standard_font_size">20sp</dimen>
-    <dimen name="small_font_size">15sp</dimen>
-    <dimen name="standard_size">40dp</dimen>
+    <dimen name="standard_text_size">16sp</dimen>
+    <dimen name="standard_title_size">22sp</dimen>
+    <dimen name="standard_size">61dp</dimen>
+    <dimen name="medium_padding">16dp</dimen>
+    <dimen name="small_padding">14dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
 </resources>

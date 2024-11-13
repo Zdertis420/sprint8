@@ -1,19 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <style name="main_activity_button_style">
+    <style name="main_activity_button_style" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:backgroundTint">@color/white</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textSize">@dimen/standard_title_size</item>
+        <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/black</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconTint">@color/main_activity_button_color</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
     </style>
 
     <style name="settings_activity_button_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/standard_size</item>
-        <item name="android:gravity">start</item>
+        <!--        <item name="android:gravity">start</item>-->
         <item name="android:backgroundTint">@color/transparent</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/standard_text_color</item>
+        <item name="android:textSize">@dimen/standard_text_size</item>
+        <item name="drawableTint">@color/settings_activity_icon_fill_color</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingVertical">21dp</item>
+        <item name="fontFamily">@font/ys_display_medium</item>
     </style>
+
+    <style name="toolbar_style" parent="header_style">
+        <item name="navigationIcon">@drawable/arrow_back</item>
+        <item name="navigationIconTint">@color/standard_text_color</item>
+    </style>
+
+    <style name="header_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="titleTextColor">@color/standard_text_color</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textFontWeight">500</item>
+    </style>
+
 </resources>

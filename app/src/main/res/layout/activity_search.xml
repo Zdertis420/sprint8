@@ -1,76 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/search_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/search_header"
+    <TextView
+        android:id="@+id/search_title"
+        android:layout_height="51dp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_size"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingStart="12dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="6dp"
+        app:title="@string/search"
+        android:text="@string/search"
+        android:fontFamily="@font/ys_display_medium"
+        android:textSize="@dimen/standard_title_size"
+        android:textColor="@color/standard_text_color"
 
-        <ImageButton
-            android:id="@+id/back_to_main"
-            android:layout_width="@dimen/standard_size"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:src="@drawable/arrow_left" />
-
-        <TextView
-            android:id="@+id/search_title"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/ys_display_medium"
-            android:padding="6dp"
-            android:text="@string/search"
-            android:textColor="@color/black"
-            android:textSize="@dimen/standard_font_size" />
-    </LinearLayout>
+        tools:ignore="RtlSymmetry" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_size"
-        android:layout_marginStart="@dimen/standard_margin"
-        android:layout_marginTop="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_header"
-        android:background="#7777"
-        >
+        android:layout_height="52dp"
+        android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:alpha="0.35"
-            android:src="@drawable/mag_glass" />
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/search"
+            android:tint="@color/gray"/>
 
         <EditText
-            android:id="@+id/search_line"
-            android:layout_width="322dp"
-            android:layout_height="match_parent"
-            android:hint="@string/search"
-            android:lines="1"
-            android:inputType="text"/>
-        
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
         <ImageView
-            android:id="@+id/cancel_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/cancel"
-            android:alpha="0.35"/>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/clear"/>
 
     </LinearLayout>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

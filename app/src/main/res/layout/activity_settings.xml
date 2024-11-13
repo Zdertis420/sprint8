@@ -1,79 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/settings"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/settings_header"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_size"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/back_to_main"
+        style="@style/toolbar_style"
+        app:title="@string/settings"
+        />
 
-        <ImageButton
-            android:id="@+id/back_to_main"
-            android:layout_width="@dimen/standard_size"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/transparent"
-            android:src="@drawable/arrow_left" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_dark_mode"
+        style="@style/settings_activity_button_style"
+        android:layout_marginTop="24dp"
+        android:text="@string/dark_theme"
+        app:switchMinWidth="35dp"
+        app:thumbTint="@color/switch_thumb_color"
+        app:trackTint="@color/switch_track_color" />
 
-        <TextView
-            android:id="@+id/settings_title"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/ys_display_medium"
-            android:padding="6dp"
-            android:text="@string/settings"
-            android:textColor="@color/black"
-            android:textSize="@dimen/standard_font_size" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/share_button"
+        style="@style/settings_activity_button_style"
+        android:text="@string/share"
+        app:drawableRightCompat="@drawable/share"
+        android:padding="20dp"/>
 
-    <LinearLayout
-        android:id="@+id/setting_menu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        android:showDividers="middle"
-        android:divider="@drawable/empty_divider"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settings_header">
+    <TextView
+        android:id="@+id/support_button"
+        style="@style/settings_activity_button_style"
+        android:text="@string/support"
+        app:drawableRightCompat="@drawable/support" />
 
-        <Switch
-            android:id="@+id/swith_theme"
-            style="@style/button_style_settings"
-            android:text="@string/dark_theme" />
-
-        <TextView
-            android:id="@+id/share"
-            style="@style/button_style_settings"
-            android:text="@string/share"
-            app:drawableRightCompat="@drawable/share" />
-
-        <TextView
-            android:id="@+id/support"
-            style="@style/button_style_settings"
-            android:text="@string/support"
-            app:drawableEndCompat="@drawable/support" />
-
-        <TextView
-            android:id="@+id/eula"
-            style="@style/button_style_settings"
-            android:text="@string/user_agreement"
-            app:drawableEndCompat="@drawable/arrow_right" />
-
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/eula"
+        style="@style/settings_activity_button_style"
+        android:text="@string/user_agreement"
+        app:drawableRightCompat="@drawable/eula" />
+</LinearLayout>

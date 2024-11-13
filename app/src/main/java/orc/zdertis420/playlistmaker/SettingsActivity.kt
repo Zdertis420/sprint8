@@ -3,18 +3,19 @@ package orc.zdertis420.playlistmaker
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.appbar.MaterialToolbar
 
 class SettingsActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var backToMain: ImageButton
+    private lateinit var backToMain: MaterialToolbar
     private lateinit var share: TextView
     private lateinit var support: TextView
     private lateinit var eula: TextView
@@ -29,9 +30,13 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
             insets
         }
 
+        bind()
+    }
+
+    private fun bind() {
         backToMain = findViewById(R.id.back_to_main)
-        share = findViewById(R.id.share)
-        support = findViewById(R.id.support)
+        share = findViewById(R.id.share_button)
+        support = findViewById(R.id.support_button)
         eula = findViewById(R.id.eula)
 
         backToMain.setOnClickListener(this@SettingsActivity)
@@ -44,7 +49,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.back_to_main -> finish()
 
-            R.id.share -> startActivity(Intent.createChooser(Intent().apply {
+            R.id.share_button -> startActivity(Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
                 putExtra(
                     Intent.EXTRA_TEXT,
@@ -53,7 +58,7 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
                 type = "text/plain"
             }, null))
 
-            R.id.support -> startActivity(Intent.createChooser(Intent().apply {
+            R.id.support_button -> startActivity(Intent.createChooser(Intent().apply {
                 action = Intent.ACTION_SEND
                 data = Uri.parse("mailto:AnRobo07@yandex.ru")
                 putExtra(
