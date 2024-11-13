@@ -31,6 +31,8 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         cancel = findViewById(R.id.cancel_button)
 
         backToMain.setOnClickListener(this@SearchActivity)
+        searchLine.setOnClickListener(this@SearchActivity)
+        cancel.setOnClickListener(this@SearchActivity)
 
 
 
