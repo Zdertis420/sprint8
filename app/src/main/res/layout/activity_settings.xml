@@ -53,24 +53,24 @@
 
         <Switch
             android:id="@+id/swith_theme"
-            style="@style/button_style_settings"
+            style="@style/settings_activity_button_style"
             android:text="@string/dark_theme" />
 
         <TextView
             android:id="@+id/share"
-            style="@style/button_style_settings"
+            style="@style/settings_activity_button_style"
             android:text="@string/share"
             app:drawableRightCompat="@drawable/share" />
 
         <TextView
             android:id="@+id/support"
-            style="@style/button_style_settings"
+            style="@style/settings_activity_button_style"
             android:text="@string/support"
             app:drawableEndCompat="@drawable/support" />
 
         <TextView
             android:id="@+id/eula"
-            style="@style/button_style_settings"
+            style="@style/settings_activity_button_style"
             android:text="@string/user_agreement"
             app:drawableEndCompat="@drawable/arrow_right" />
 

@@ -68,7 +68,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/cancel"
-            android:alpha="0.35"/>
+            android:alpha="0.0"/>
 
     </LinearLayout>
 

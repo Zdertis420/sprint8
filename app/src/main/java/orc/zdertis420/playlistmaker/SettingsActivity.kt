@@ -3,7 +3,6 @@ package orc.zdertis420.playlistmaker
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.TextView
@@ -29,6 +28,10 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
             insets
         }
 
+        bind()
+    }
+
+    private fun bind() {
         backToMain = findViewById(R.id.back_to_main)
         share = findViewById(R.id.share)
         support = findViewById(R.id.support)

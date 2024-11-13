@@ -26,6 +26,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             insets
         }
 
+        bind()
+    }
+
+    private fun bind() {
         search = findViewById(R.id.search)
         mediaLibrary = findViewById(R.id.media_library)
         settings = findViewById(R.id.settings)
