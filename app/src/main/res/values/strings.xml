@@ -1,8 +1,14 @@
 <resources>
     <string name="app_name" translatable="false">Playlist Maker</string>
+    <!-- Main menu -->
     <string name="search">Search</string>
     <string name="media_library">Media Library</string>
     <string name="settings">Settings</string>
+
+    <!-- Search -->
+
+
+    <!-- Settings -->
     <string name="light_theme">Light theme</string>
     <string name="dark_theme">Dark theme</string>
     <string name="share">Share</string>
