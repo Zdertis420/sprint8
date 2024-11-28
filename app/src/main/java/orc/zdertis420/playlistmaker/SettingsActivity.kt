@@ -1,12 +1,11 @@
 package orc.zdertis420.playlistmaker
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.appbar.MaterialToolbar
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,10 +18,10 @@ class SettingsActivity : AppCompatActivity() {
             insets
         }
 
-        val backToMain = findViewById<ImageButton>(R.id.back_to_main)
+        val backToMain: MaterialToolbar = findViewById(R.id.back_to_main)
 
         backToMain.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -9,59 +8,51 @@
     android:background="@color/background_main"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/main_layout"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/medium_padding"
+        android:paddingTop="@dimen/small_padding"
+        android:paddingBottom="@dimen/medium_padding"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="@dimen/standard_title_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="28dp"
+        android:gravity="center"
         android:orientation="vertical"
+        android:padding="@dimen/medium_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:text="@string/app_name"
-            android:textColor="@color/white"
-            android:textSize="@dimen/standard_font_size" />
+        app:layout_constraintTop_toBottomOf="@id/textView">
 
         <Button
             android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:drawableEnd="@drawable/mag_glass"
+            style="@style/main_activity_button_style"
             android:text="@string/search"
-            android:textColor="@color/black"/>
+            app:icon="@drawable/search" />
 
         <Button
             android:id="@+id/media_library"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:drawableEnd="@drawable/music_player_svgrepo_com"
+            style="@style/main_activity_button_style"
             android:text="@string/media_library"
-            android:textColor="@color/black"/>
+            app:icon="@drawable/media_library" />
 
         <Button
             android:id="@+id/settings"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:drawableEnd="@drawable/settings"
+            style="@style/main_activity_button_style"
             android:text="@string/settings"
-            android:textColor="@color/black"/>
-
-
+            app:icon="@drawable/settings" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
