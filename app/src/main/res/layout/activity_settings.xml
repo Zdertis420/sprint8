@@ -24,20 +24,20 @@
         app:trackTint="@color/switch_track_color" />
 
     <TextView
-        android:id="@+id/share_button"
+        android:id="@+id/share"
         style="@style/settings_activity_button_style"
         android:text="@string/share"
         app:drawableRightCompat="@drawable/share"
         android:padding="20dp"/>
 
     <TextView
-        android:id="@+id/support_button"
+        android:id="@+id/support"
         style="@style/settings_activity_button_style"
         android:text="@string/support"
         app:drawableRightCompat="@drawable/support" />
 
     <TextView
-        android:id="@+id/user_agreement"
+        android:id="@+id/eula"
         style="@style/settings_activity_button_style"
         android:text="@string/user_agreement"
         app:drawableRightCompat="@drawable/eula" />

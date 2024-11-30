@@ -6,6 +6,11 @@
     <string name="light_theme">Light theme</string>
     <string name="dark_theme">Dark theme</string>
     <string name="share">Share</string>
+    <string name="course" translatable="false">https://practicum.yandex.ru/profile/android-developer-plus/</string>
     <string name="support">Contact support</string>
+    <string name="mailto" translatable="false">mailto:AnRobo07@yandex.ru</string>
+    <string name="subject">Message to the developers of the Playlist Maker app</string>
+    <string name="text">Thanks to the developers for a cool app!</string>
     <string name="user_agreement">User agreement</string>
+    <string name="offer" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
 </resources>
