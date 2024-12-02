@@ -57,9 +57,13 @@ class SettingsActivity : AppCompatActivity(), View.OnClickListener {
             }, null))
 
             R.id.support -> startActivity(Intent.createChooser(Intent().apply {
-                action = Intent.ACTION_SEND
-                data = Uri.parse(getString(R.string.mailto))
+                action = Intent.ACTION_SENDTO
+                data = Uri.parse("mailto:")
 
+                putExtra(
+                    Intent.EXTRA_EMAIL,
+                    arrayOf(getString(R.string.email))
+                )
                 putExtra(
                     Intent.EXTRA_SUBJECT,
                     getString(R.string.subject)
