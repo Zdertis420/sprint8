@@ -5,4 +5,5 @@
     <dimen name="standard_size">61dp</dimen>
     <dimen name="medium_padding">16dp</dimen>
     <dimen name="small_padding">14dp</dimen>
+    <dimen name="even_smaller_padding">12dp</dimen>
 </resources>

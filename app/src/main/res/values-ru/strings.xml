@@ -2,10 +2,12 @@
 <resources>
     <string name="search">Поиск</string>
     <string name="media_library">Медиатека</string>
-    <string name="settings">Насторйки</string>
+    <string name="settings">Настройки</string>
     <string name="light_theme">Светлая тема</string>
     <string name="dark_theme">Тёмная тема</string>
     <string name="share">Поделиться</string>
     <string name="support">Обратиться в поддержку</string>
+    <string name="subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="text">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="user_agreement">Пользовательское соглашение</string>
 </resources>
