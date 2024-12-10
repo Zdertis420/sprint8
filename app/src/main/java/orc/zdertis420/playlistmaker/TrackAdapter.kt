@@ -1,11 +1,12 @@
 package orc.zdertis420.playlistmaker
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class TrackAdapter(
-    private val tracks: List<Track>,
+    private var tracks: List<Track>,
 ) : RecyclerView.Adapter<TrackViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
@@ -17,6 +18,12 @@ class TrackAdapter(
                     false
                 ),
         )
+    }
+
+    @SuppressLint("NotifyDataSetChanged") // ya know what?? fuck you and your warnings
+    fun updateTracks(newTracks: List<Track>) {
+        this.tracks = newTracks
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
