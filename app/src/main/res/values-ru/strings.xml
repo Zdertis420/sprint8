@@ -10,4 +10,5 @@
     <string name="subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="text">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="user_agreement">Пользовательское соглашение</string>
+    <string name="empty_result">Ничего не нашлось</string>
 </resources>

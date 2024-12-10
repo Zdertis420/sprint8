@@ -13,4 +13,5 @@
     <string name="text">Thanks to the developers for a cool app!</string>
     <string name="user_agreement">User agreement</string>
     <string name="offer" translatable="false">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="empty_result">Nothing found</string>
 </resources>

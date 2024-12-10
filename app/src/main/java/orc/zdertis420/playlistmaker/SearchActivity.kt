@@ -1,5 +1,6 @@
 package orc.zdertis420.playlistmaker
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.text.Editable
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -35,6 +37,9 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var recycler: RecyclerView
 
+    private lateinit var emptyResult: LinearLayout
+    private lateinit var emptyResultImage: ImageView
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://itunes.apple.com/")
         .addConverterFactory(GsonConverterFactory.create())
@@ -60,8 +65,19 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         searchLine = findViewById(R.id.search_line)
         cancel = findViewById(R.id.clear_text)
 
+        emptyResult = findViewById(R.id.empty_result)
+        emptyResultImage = findViewById(R.id.empty_result_image)
+
         backToMain.setOnClickListener(this@SearchActivity)
         cancel.setOnClickListener(this@SearchActivity)
+
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            emptyResultImage.setImageResource(R.drawable.empty_result_dark)
+        } else {
+            emptyResultImage.setImageResource(R.drawable.empty_result_light)
+        }
 
         searchLine.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -100,7 +116,14 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
                     Log.i("RESPONSE", tracksJson.toString())
 
-                    for (i in 0..<tracksJson!!.resultCount) {
+                    if (tracksJson!!.resultCount == 0 && text != "") {
+                        emptyResult.visibility = View.VISIBLE
+                        recycler.visibility = View.GONE
+                        Log.i("EMPTY RESULT FOR", text)
+                        return
+                    }
+
+                    for (i in 0..<tracksJson.resultCount) {
                         tracks.add(
                             Track(
                                 tracksJson.results[i].trackName,
@@ -119,7 +142,10 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     Log.i("CRITICAL SUCCESS", "ALL TRACKS ADDED")
                     Log.i("TRACKS", "List of all added tracks: $tracks")
 
+                    emptyResult.visibility = View.GONE
+                    recycler.visibility = View.VISIBLE
                     (recycler.adapter as TrackAdapter).updateTracks(tracks)
+                    return
                 }
             }
 

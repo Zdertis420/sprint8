@@ -22,6 +22,7 @@ class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         trackTimeView.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(293000L)
         Glide.with(itemView.context)
             .load(model.artworkUrl100)
+            .timeout(5000)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .diskCacheStrategy(DiskCacheStrategy.NONE)

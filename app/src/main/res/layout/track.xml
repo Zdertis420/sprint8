@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_size"
     android:layout_margin="8dp"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -13,6 +14,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         app:shapeAppearanceOverlay="@style/rounded_image"
+
         tools:ignore="ContentDescription" />
 
     <RelativeLayout
