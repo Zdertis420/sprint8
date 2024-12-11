@@ -1,13 +1,18 @@
 package orc.zdertis420.playlistmaker
 
+import android.content.Context
 import android.content.res.Configuration
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -18,6 +23,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.MaterialToolbar
+import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -40,9 +47,18 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var emptyResult: LinearLayout
     private lateinit var emptyResultImage: ImageView
 
+    private lateinit var noConnection: LinearLayout
+    private lateinit var noConnectionImage: ImageView
+    private lateinit var updateConnection: Button
+
+    private val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(2500, TimeUnit.MILLISECONDS)
+        .build()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://itunes.apple.com/")
         .addConverterFactory(GsonConverterFactory.create())
+        .client(okHttpClient)
         .build()
 
     private var tracks: List<Track> = listOf()
@@ -65,18 +81,27 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         searchLine = findViewById(R.id.search_line)
         cancel = findViewById(R.id.clear_text)
 
-        emptyResult = findViewById(R.id.empty_result)
-        emptyResultImage = findViewById(R.id.empty_result_image)
-
         backToMain.setOnClickListener(this@SearchActivity)
         cancel.setOnClickListener(this@SearchActivity)
 
+        emptyResult = findViewById(R.id.empty_result)
+        emptyResultImage = findViewById(R.id.empty_result_image)
+
+        noConnection = findViewById(R.id.no_connection)
+        noConnectionImage = findViewById(R.id.no_connection_image)
+        updateConnection = findViewById(R.id.update_connection)
+
+        updateConnection.setOnClickListener(this@SearchActivity)
+
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+
 
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             emptyResultImage.setImageResource(R.drawable.empty_result_dark)
+            noConnectionImage.setImageResource(R.drawable.no_connection_dark)
         } else {
             emptyResultImage.setImageResource(R.drawable.empty_result_light)
+            noConnectionImage.setImageResource(R.drawable.no_connection_light)
         }
 
         searchLine.addTextChangedListener(object : TextWatcher {
@@ -91,9 +116,16 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             override fun afterTextChanged(s: Editable?) {
                 text = searchLine.text.toString()
 
-                browseTracks(text)
+//                browseTracks(text)
             }
         })
+
+        searchLine.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                browseTracks(text)
+            }
+            false
+        }
 
         recycler = findViewById(R.id.tracks)
 
@@ -101,14 +133,34 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         recycler.adapter = TrackAdapter(tracks = tracks)
     }
 
+    private fun checkNetworkAvailability(context: Context) {
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE)
+                as ConnectivityManager
+
+        if (
+            (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                    )?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) != false
+        ) {
+            recycler.visibility = View.GONE
+            noConnection.visibility = View.VISIBLE
+
+            Log.i("SWITCH", "HIDE TRACKS, SHOW ERROR")
+        } else {
+            noConnection.visibility = View.GONE
+            recycler.visibility = View.VISIBLE
+
+            Log.i("SWITCH", "HIDE ERROR, SHOW TRACKS")
+        }
+    }
+
     @GET("/search?entity=song")
     private fun browseTracks(@Query("term") text: String) {
+
         val pmApiService = retrofit.create<PMApiService>()
         val tracks = mutableListOf<Track>()
 
         pmApiService.browseTracks(text).enqueue(object : Callback<TrackResponse> {
             override fun onResponse(call: Call<TrackResponse>, response: Response<TrackResponse>) {
-
                 Log.i("SUCCESS", "there is a response for $text")
 
                 if (response.isSuccessful) {
@@ -145,12 +197,13 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     emptyResult.visibility = View.GONE
                     recycler.visibility = View.VISIBLE
                     (recycler.adapter as TrackAdapter).updateTracks(tracks)
-                    return
                 }
             }
 
             override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
                 Log.e("FAIL", "there's no response")
+
+                checkNetworkAvailability(this@SearchActivity)
             }
         })
     }
@@ -165,14 +218,18 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.back_to_main -> {
-                finish()
-            }
+            R.id.back_to_main -> finish()
 
             R.id.clear_text -> {
                 searchLine.text.clear()
                 (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager)
                     .hideSoftInputFromWindow(v.windowToken, 0)
+            }
+
+            R.id.update_connection -> {
+                browseTracks(text)
+
+                Log.d("NO CONNECTION", "RETRY")
             }
         }
     }

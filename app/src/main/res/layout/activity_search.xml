@@ -73,23 +73,65 @@
         android:id="@+id/empty_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_marginTop="108dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables">
+<!--        ya know what?? fuck you and your warnings-->
 
         <ImageView
             android:id="@+id/empty_result_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/empty_result_light" />
+            tools:ignore="ContentDescription" />
+<!--        ya know what?? fuck you and your warnings-->
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/ys_display_regular"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
             android:text="@string/empty_result"
-            android:textColor="@color/standard_text_color" />
+            android:textColor="@color/standard_text_color"
+            android:textSize="@dimen/standard_title_size" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/no_connection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/no_connection_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/no_connection_light"
+            tools:ignore="ContentDescription" />
+<!--        ya know what?? fuck you and your warnings-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ys_display_medium"
+            android:gravity="center_horizontal"
+            android:text="@string/no_connection"
+            android:textColor="@color/standard_text_color"
+            android:textSize="@dimen/standard_title_size" />
+
+        <Button
+            android:id="@+id/update_connection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/standard_text_color"
+            android:text="@string/update"
+            android:textColor="@color/background_color" />
+
+    </LinearLayout>
 
 </LinearLayout>
