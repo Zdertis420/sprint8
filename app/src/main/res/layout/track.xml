@@ -28,6 +28,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:fontFamily="@font/ys_display_regular"
             android:textColor="@color/standard_text_color" />
 

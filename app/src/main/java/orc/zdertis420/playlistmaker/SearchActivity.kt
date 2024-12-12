@@ -34,13 +34,14 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
 
+
 class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var backToMain: MaterialToolbar
     private lateinit var searchLine: EditText
     private lateinit var cancel: ImageView
 
-    private lateinit var text: String
+    private lateinit var searchQuery: String
 
     private lateinit var recycler: RecyclerView
 
@@ -52,14 +53,16 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var updateConnection: Button
 
     private val okHttpClient = OkHttpClient.Builder()
-        .connectTimeout(2500, TimeUnit.MILLISECONDS)
+        .connectTimeout(1000, TimeUnit.MILLISECONDS)
         .build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("https://itunes.apple.com/")
+        .baseUrl("https://itunes.apple.com")
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()
+
+//    private val youtube =
 
     private var tracks: List<Track> = listOf()
 
@@ -114,7 +117,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                text = searchLine.text.toString()
+                searchQuery = searchLine.text.toString()
 
 //                browseTracks(text)
             }
@@ -122,7 +125,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         searchLine.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                browseTracks(text)
+                browseTracks(searchQuery)
             }
             false
         }
@@ -153,17 +156,18 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    @GET("/search?entity=song")
+    @GET("/search?q=term")
     private fun browseTracks(@Query("term") text: String) {
-
         val pmApiService = retrofit.create<PMApiService>()
         val tracks = mutableListOf<Track>()
 
         pmApiService.browseTracks(text).enqueue(object : Callback<TrackResponse> {
             override fun onResponse(call: Call<TrackResponse>, response: Response<TrackResponse>) {
+
                 Log.i("SUCCESS", "there is a response for $text")
 
                 if (response.isSuccessful) {
+                    emptyResult.visibility = View.GONE
                     val tracksJson = response.body()
 
                     Log.i("RESPONSE", tracksJson.toString())
@@ -171,24 +175,30 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     if (tracksJson!!.resultCount == 0 && text != "") {
                         emptyResult.visibility = View.VISIBLE
                         recycler.visibility = View.GONE
-                        Log.i("EMPTY RESULT FOR", text)
+
+                        Log.d("EMPTY RESULT", "EMPTY RESULT FOR $text")
                         return
                     }
 
                     for (i in 0..<tracksJson.resultCount) {
-                        tracks.add(
-                            Track(
-                                tracksJson.results[i].trackName,
-                                tracksJson.results[i].artistName,
-                                tracksJson.results[i].trackTimeMillis,
-                                tracksJson.results[i].artworkUrl100
+                        try {
+                            tracks.add(
+                                Track(
+                                    tracksJson.results[i].trackName,
+                                    tracksJson.results[i].artistName,
+                                    tracksJson.results[i].trackTimeMillis,
+                                    tracksJson.results[i].artworkUrl100
+                                )
                             )
-                        )
+                        } catch (npe: NullPointerException) {
+                            Log.d("NULL", "SKIP THAT MF")
+                            continue
+                        }
 
-//                        Log.i(
-//                            "CRITICAL SUCCESS",
-//                            "TRACK ${tracksJson.results[i].trackName} - ${tracksJson.results[i].artistName} ADDED"
-//                        )
+                        Log.i(
+                            "MEGA SUCCESS",
+                            "TRACK ${tracksJson.results[i].trackName} - ${tracksJson.results[i].artistName} ADDED"
+                        )
                     }
 
                     Log.i("CRITICAL SUCCESS", "ALL TRACKS ADDED")
@@ -227,7 +237,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             R.id.update_connection -> {
-                browseTracks(text)
+                browseTracks(searchQuery)
 
                 Log.d("NO CONNECTION", "RETRY")
             }
@@ -239,7 +249,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         outPersistentState: PersistableBundle
     ) {
         super.onSaveInstanceState(outState, outPersistentState)
-        outState.putString("User input", text)
+        outState.putString("User input", searchQuery)
     }
 
     override fun onRestoreInstanceState(

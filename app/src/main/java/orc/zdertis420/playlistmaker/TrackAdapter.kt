@@ -33,4 +33,9 @@ class TrackAdapter(
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         holder.bind(tracks[position])
     }
+
+//    override fun onViewRecycled(holder: TrackViewHolder) {
+//        super.onViewRecycled(holder)
+//        holder.scroller.abortAnimation()
+//    }
 }
