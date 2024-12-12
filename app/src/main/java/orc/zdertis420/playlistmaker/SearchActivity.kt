@@ -95,7 +95,6 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             emptyResultImage.setImageResource(R.drawable.empty_result_dark)
             noConnectionImage.setImageResource(R.drawable.no_connection_dark)
@@ -155,12 +154,12 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
     @GET("/search?entity=song")
     private fun browseTracks(@Query("term") text: String) {
-
         val pmApiService = retrofit.create<PMApiService>()
         val tracks = mutableListOf<Track>()
 
         pmApiService.browseTracks(text).enqueue(object : Callback<TrackResponse> {
             override fun onResponse(call: Call<TrackResponse>, response: Response<TrackResponse>) {
+
                 Log.i("SUCCESS", "there is a response for $text")
 
                 if (response.isSuccessful) {
