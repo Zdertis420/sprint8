@@ -98,7 +98,6 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             emptyResultImage.setImageResource(R.drawable.empty_result_dark)
             noConnectionImage.setImageResource(R.drawable.no_connection_dark)
