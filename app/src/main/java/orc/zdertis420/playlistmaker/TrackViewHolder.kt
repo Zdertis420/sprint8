@@ -1,7 +1,10 @@
 package orc.zdertis420.playlistmaker
 
 import android.view.View
+import android.widget.Scroller
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.imageview.ShapeableImageView
 import com.bumptech.glide.Glide
@@ -16,34 +19,50 @@ class TrackViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val trackTimeView: TextView = itemView.findViewById(R.id.track_time)
     private val trackImageView: ShapeableImageView = itemView.findViewById(R.id.track_image)
 
-//    val scroller = Scroller(trackNameView.context)
-//    private val scrollRunnable = object : Runnable {
-//        override fun run() {
-//            if (scroller.computeScrollOffset()) {
-//                trackNameView.scrollTo(scroller.currX, scroller.currY)
-//                trackNameView.post(this) // Continue scrolling
-//            }
-//        }
-//    }
+    val scroller = Scroller(trackNameView.context)
+    private val scrollRunnable = object : Runnable {
+        override fun run() {
+            if (scroller.computeScrollOffset()) {
+                trackNameView.scrollTo(scroller.currX, scroller.currY)
+                trackNameView.post(this) // Continue scrolling
+            }
+        }
+    }
 
     fun bind(model: Track) {
-//        trackNameView.post {
-//            trackNameView.requestFocus()
-//
-//            if (trackNameView.layout.getEllipsisCount(trackNameView.lineCount - 1) > 0) {
-//                val scrollAmount =
-//                    trackNameView.layout.getLineWidth(trackNameView.lineCount - 1) - trackNameView.width
-//
-//                scroller.startScroll(0, 0, scrollAmount.toInt(), 0, 2500)
-//
-//                trackNameView.post(scrollRunnable)
-//            }
-//        }
-
         trackNameView.text = model.trackName
+
+        trackNameView.post {
+            trackNameView.requestFocus()
+
+            if (trackNameView.layout.getEllipsisCount(trackNameView.lineCount - 1) > 0) {
+                val scrollAmount =
+                    trackNameView.layout.getLineWidth(trackNameView.lineCount - 1) - trackNameView.width
+
+                scroller.startScroll(0, 0, scrollAmount.toInt(), 0, 200)
+
+                trackNameView.post(scrollRunnable)
+            }
+        }
+
         artistNameView.text = model.artistName
+
         trackTimeView.text = SimpleDateFormat("mm:ss", Locale.getDefault())
             .format(model.trackTimeMillis)
+
+        artistNameView.post {
+            if (artistNameView.layout.getEllipsisCount(artistNameView.lineCount - 1) > 0) {
+                val params = trackTimeView.layoutParams as ConstraintLayout.LayoutParams
+
+                params.startToEnd
+
+                params.startToStart = artistNameView.id
+                params.topToBottom = artistNameView.id
+
+                trackTimeView.layoutParams = params
+            }
+        }
+
         Glide.with(itemView.context)
             .load(model.artworkUrl100)
             .timeout(2500)

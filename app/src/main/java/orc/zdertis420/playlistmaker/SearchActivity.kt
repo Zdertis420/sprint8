@@ -98,7 +98,6 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
 
-
         if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
             emptyResultImage.setImageResource(R.drawable.empty_result_dark)
             noConnectionImage.setImageResource(R.drawable.no_connection_dark)
@@ -144,15 +143,9 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
                     )?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) != false
         ) {
-            recycler.visibility = View.GONE
-            noConnection.visibility = View.VISIBLE
-
-            Log.i("SWITCH", "HIDE TRACKS, SHOW ERROR")
+            TODO("FOR FUTURE")
         } else {
-            noConnection.visibility = View.GONE
-            recycler.visibility = View.VISIBLE
-
-            Log.i("SWITCH", "HIDE ERROR, SHOW TRACKS")
+            TODO("FOR FUTURE")
         }
     }
 
@@ -167,16 +160,14 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                 Log.i("SUCCESS", "there is a response for $text")
 
                 if (response.isSuccessful) {
-                    emptyResult.visibility = View.GONE
                     val tracksJson = response.body()
 
                     Log.i("RESPONSE", tracksJson.toString())
 
                     if (tracksJson!!.resultCount == 0 && text != "") {
-                        emptyResult.visibility = View.VISIBLE
-                        recycler.visibility = View.GONE
-
                         Log.d("EMPTY RESULT", "EMPTY RESULT FOR $text")
+
+                        changeContent()
                         return
                     }
 
@@ -204,8 +195,8 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     Log.i("CRITICAL SUCCESS", "ALL TRACKS ADDED")
                     Log.i("TRACKS", "List of all added tracks: $tracks")
 
-                    emptyResult.visibility = View.GONE
-                    recycler.visibility = View.VISIBLE
+                    changeContent()
+
                     (recycler.adapter as TrackAdapter).updateTracks(tracks)
                 }
             }
@@ -213,7 +204,9 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             override fun onFailure(call: Call<TrackResponse>, t: Throwable) {
                 Log.e("FAIL", "there's no response")
 
-                checkNetworkAvailability(this@SearchActivity)
+                changeContent()
+
+//                checkNetworkAvailability(this@SearchActivity)
             }
         })
     }
@@ -223,6 +216,38 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
             cancel.alpha = 1.0F
         } else {
             cancel.alpha = 0.0F
+        }
+    }
+
+    private fun changeContent() {
+        val stackTrace = Thread.currentThread().stackTrace
+
+        if (stackTrace.size >= 3) {
+            when (stackTrace[4].lineNumber) {
+                168 -> {
+                    Log.d("SWITCH", "HIDE TRACKS, SHOW EMPTY RESULT ERROR")
+
+                    recycler.visibility = View.GONE
+                    emptyResult.visibility = View.VISIBLE
+                    noConnection.visibility = View.GONE
+                }
+
+                198 -> {
+                    Log.d("SWITCH", "HIDE ERRORS, SHOW TRACKS")
+
+                    recycler.visibility = View.VISIBLE
+                    emptyResult.visibility = View.GONE
+                    noConnection.visibility = View.GONE
+                }
+
+                207 -> {
+                    Log.d("SWITCH", "HIDE TRACKS, SHOW NO CONNECTION ERROR")
+
+                    recycler.visibility = View.GONE
+                    emptyResult.visibility = View.GONE
+                    noConnection.visibility = View.VISIBLE
+                }
+            }
         }
     }
 
