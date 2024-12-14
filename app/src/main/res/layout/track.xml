@@ -2,78 +2,67 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/track"
     android:layout_width="match_parent"
     android:layout_height="@dimen/standard_size"
-    android:layout_margin="8dp"
-    android:gravity="center"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingHorizontal="13dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/track_image"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        app:shapeAppearanceOverlay="@style/rounded_image"
-
-        tools:ignore="ContentDescription" />
+        android:layout_gravity="center_vertical" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:layout_weight="10">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="8dp"
+        android:layout_weight="1">
 
         <TextView
             android:id="@+id/track_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:ellipsize="end"
             android:fontFamily="@font/ys_display_regular"
             android:maxLines="1"
             android:textColor="@color/standard_text_color"
+            android:textFontWeight="400"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/author"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/ys_display_regular"
-            android:maxLines="1"
-            android:textColor="@color/subtext"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/track_name" />
-
+            style="@style/track_artist_name_and_time_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/track_name"
+            app:layout_constraintTop_toBottomOf="@id/track_name" />
 
         <ImageView
             android:id="@+id/delimiter"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/track_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:src="@drawable/delimiter"
-            app:layout_constraintStart_toEndOf="@+id/author"
-            app:layout_constraintTop_toTopOf="@+id/author"
-            app:tint="@color/subtext"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/author"
+            app:layout_constraintTop_toBottomOf="@id/track_name"
             tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/track_time"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/ys_display_regular"
-            android:textColor="@color/subtext"
-            app:layout_constraintStart_toEndOf="@+id/delimiter"
+            style="@style/track_artist_name_and_time_style"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/delimiter"
             app:layout_constraintTop_toTopOf="@+id/delimiter" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:src="@drawable/arrow_right"
-        tools:ignore="ContentDescription" />
-
+        android:id="@+id/ivOnTrackPageButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/arrow_right" />
 </LinearLayout>

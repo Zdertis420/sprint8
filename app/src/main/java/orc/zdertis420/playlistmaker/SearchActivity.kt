@@ -62,8 +62,6 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
         .client(okHttpClient)
         .build()
 
-//    private val youtube =
-
     private var tracks: List<Track> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -117,8 +115,6 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun afterTextChanged(s: Editable?) {
                 searchQuery = searchLine.text.toString()
-
-//                browseTracks(text)
             }
         })
 
@@ -205,8 +201,6 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                 Log.e("FAIL", "there's no response")
 
                 changeContent()
-
-//                checkNetworkAvailability(this@SearchActivity)
             }
         })
     }
