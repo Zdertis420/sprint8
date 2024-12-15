@@ -218,7 +218,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
 
         if (stackTrace.size >= 3) {
             when (stackTrace[4].lineNumber) {
-                168 -> {
+                166 -> {
                     Log.d("SWITCH", "HIDE TRACKS, SHOW EMPTY RESULT ERROR")
 
                     recycler.visibility = View.GONE
@@ -226,7 +226,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     noConnection.visibility = View.GONE
                 }
 
-                198 -> {
+                194 -> {
                     Log.d("SWITCH", "HIDE ERRORS, SHOW TRACKS")
 
                     recycler.visibility = View.VISIBLE
@@ -234,7 +234,7 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     noConnection.visibility = View.GONE
                 }
 
-                207 -> {
+                203 -> {
                     Log.d("SWITCH", "HIDE TRACKS, SHOW NO CONNECTION ERROR")
 
                     recycler.visibility = View.GONE
