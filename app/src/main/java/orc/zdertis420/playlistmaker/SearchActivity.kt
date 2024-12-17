@@ -241,6 +241,16 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                     emptyResult.visibility = View.GONE
                     noConnection.visibility = View.VISIBLE
                 }
+
+                else -> {
+                    if (stackTrace[3].toString() == "orc.zdertis420.playlistmaker.SearchActivity.onClick(SearchActivity.kt:267)") {
+                        Log.d("SWITCH", "HIDE EVERYTHING, QUERY CLEARED")
+
+                        recycler.visibility = View.GONE
+                        emptyResult.visibility = View.GONE
+                        noConnection.visibility = View.GONE
+                    }
+                }
             }
         }
     }
@@ -253,6 +263,8 @@ class SearchActivity : AppCompatActivity(), View.OnClickListener {
                 searchLine.text.clear()
                 (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager)
                     .hideSoftInputFromWindow(v.windowToken, 0)
+
+                changeContent()
             }
 
             R.id.update_connection -> {
